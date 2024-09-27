@@ -45,3 +45,23 @@ def get_object_by_id(todo_id):
         'description': row[2],
         'is_active': row[3],
     }
+
+
+def delete_object_by_id(todo_id):
+    cursor.execute("DELETE FROM todo_list WHERE id = ?", (todo_id,))
+    conn.commit()
+
+
+def complete_object_by_id(todo_id, choice):
+    cursor.execute('UPDATE todo_list SET is_active = ? WHERE id = ?', (choice, todo_id))
+    conn.commit()
+
+
+def change_todo_name_by_id(todo_id, name):
+    cursor.execute('UPDATE todo_list SET name = ? WHERE id = ?', (name, todo_id))
+    conn.commit()
+
+
+def change_todo_description_by_id(todo_id, description):
+    cursor.execute('UPDATE todo_list SET description = ? WHERE id = ?', (description, todo_id))
+    conn.commit()

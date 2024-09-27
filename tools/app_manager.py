@@ -2,7 +2,14 @@ import sys
 
 from output_decorator import StringDecorator
 
-from tools.base_commands import insert_data, get_all_data, get_object_by_id
+from tools.base_commands import (insert_data,
+                                 get_all_data,
+                                 get_object_by_id,
+                                 delete_object_by_id,
+                                 complete_object_by_id,
+                                 change_todo_name_by_id,
+                                 change_todo_description_by_id,
+                                 )
 from tools.config import Config
 
 
@@ -94,12 +101,13 @@ class AppManager:
                 self.enter_to_continue()
                 continue
             else:
+                print(todo_choice)
                 self.to_do_menu(todo_choice)
         StringDecorator().string_decorate(symbol='-')
         self.start_menu()
 
     def to_do_menu(self, todo_id):
-        todo = {}
+        todo = todo_id
         try:
             todo = get_object_by_id(int(todo_id))
         except Exception as e:
@@ -146,13 +154,65 @@ class AppManager:
         self.todo_list_menu()
 
     def update_todo(self, todo_id):
-        print('Updating ToDo')
+        StringDecorator().string_decorate()
+        while True:
+            title = input(f'Enter a new title - old [{todo_id['name']}]: ')
+            description = input(f'Enter a new description - old [{todo_id["description"]}]: ')
+            try:
+                change_todo_name_by_id(todo_id=todo_id['id'], name=title)
+                change_todo_description_by_id(todo_id=todo_id['id'], description=description)
+            except Exception as e:
+                StringDecorator().string_decorate(symbol='-')
+                print(f'Error! Something went wrong: {e}')
+                self.enter_to_continue()
+                continue
+            print('Done!')
+            StringDecorator().string_decorate(symbol='-')
+            self.enter_to_continue()
+            break
 
     def complete_todo(self, todo_id):
-        print('Completing ToDo')
+        StringDecorator().string_decorate()
+        choice = self.action_complete()
+        if choice:
+            todo_status = todo_id['is_active']
+            todo_status = not todo_status
+            try:
+                complete_object_by_id(todo_id=todo_id['id'], choice=todo_status)
+            except Exception as e:
+                print(f'Error! ToDo does not exist: {e}')
+                self.enter_to_continue()
+                self.to_do_menu(todo_id['id'])
+        else:
+            self.todo_list_menu()
 
     def delete_todo(self, todo_id):
-        print('Deleting ToDo')
+        StringDecorator().string_decorate()
+        choice = self.action_complete()
+        if choice:
+            try:
+                delete_object_by_id(int(todo_id['id']))
+            except Exception as e:
+                print(f'Error! ToDo does not exist: {e}')
+                StringDecorator().string_decorate(symbol='-')
+                self.enter_to_continue()
+                self.to_do_menu(todo_id['id'])
+
+        else:
+            self.todo_list_menu()
+
+    def action_complete(self):
+        while True:
+            choice = input('Are you sure you want to complete it? - (y/n)\n'
+                           ': ')
+            if choice == 'y':
+                return True
+            elif choice == 'n':
+                return False
+            else:
+                print('Invalid input!')
+                self.enter_to_continue()
+                continue
 
     @staticmethod
     def enter_to_continue():
