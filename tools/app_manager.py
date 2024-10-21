@@ -110,6 +110,11 @@ class AppManager:
         todo = todo_id
         try:
             todo = get_object_by_id(int(todo_id))
+            status = todo['is_active']
+            if status == 1:
+                status = 'Complete'
+            else:
+                status = 'Uncompleted'
         except Exception as e:
             StringDecorator().string_decorate(symbol='-')
             print(f'Error! ToDo does not exist: {e}')
@@ -122,7 +127,7 @@ class AppManager:
             StringDecorator().string_decorate()
             StringDecorator().string_decorate(text=f'ToDo name: {todo["name"]}'
                                                    f' | Description: {todo["description"]}'
-                                                   f' | Status: {todo["is_active"]}',
+                                                   f' | Status: {status}',
                                               symbol='=')
             StringDecorator().string_decorate(symbol='-')
             print('Choice action:\n'
