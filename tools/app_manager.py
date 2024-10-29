@@ -6,7 +6,7 @@
 # --------------------------------------------------------
 import sys
 
-from output_decorator import StringDecorator
+from tools.output_decorator import StringDecorator
 
 from tools.base_commands import (insert_data,
                                  get_all_data,
