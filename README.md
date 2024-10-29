@@ -1,6 +1,10 @@
 # CLI ToDo
 
 ---
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/saneksking/CLIToDo)](https://github.com/saneksking/CLIToDo/)
+![GitHub top language](https://img.shields.io/github/languages/top/saneksking/CLIToDo)
+[![GitHub](https://img.shields.io/github/license/saneksking/CLIToDo)](https://github.com/saneksking/CLIToDo/blob/master/LICENSE)
+---
 
 **CLI ToDo** - A simple console app for keeping and manage your tasks. 
 
