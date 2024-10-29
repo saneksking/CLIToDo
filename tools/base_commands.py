@@ -1,3 +1,9 @@
+# --------------------------------------------------------
+# Licensed under the terms of the BSD 3-Clause License
+# (see LICENSE for details).
+# Copyright © 2024, A.A. Suvorov
+# All rights reserved.
+# --------------------------------------------------------
 import sqlite3
 
 conn = sqlite3.connect(f'ToDo.sqlite')
