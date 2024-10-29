@@ -19,6 +19,8 @@
 ```python app.py```
 
 ---
+<img src="images/logo.png">
+---
 
 ### Disclaimer of liability
 
